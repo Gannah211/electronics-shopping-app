@@ -1,0 +1,279 @@
+import 'package:flutter/material.dart';
+import '../screens/home_screen.dart';
+
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String _password = "";
+  bool currentvisibilityofPassWord = true;
+  bool currentvisibilityofConfirmedPassWord = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(244, 241, 187, 1),
+        toolbarHeight: MediaQuery.of(context).size.height * 0.035,
+      ),
+      backgroundColor: Color.fromRGBO(244, 241, 187, 1),
+
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 110.0),
+              child: Center(
+                child: Container(
+                  width: 340,
+                  height: 600,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 155, 193, 188),
+                    borderRadius: BorderRadius.circular(50.0),
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Create Account",
+                          style: TextStyle(
+                            fontFamily: 'Suwannaphum',
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Text(
+                          "Join ShopCraft today",
+                          style: TextStyle(fontFamily: 'Suwannaphum'),
+                        ),
+                      ),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            //full name feild
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Full Name',
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'Suwannaphum',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(190, 28, 28, 34),
+                                  ),
+                                  focusColor: Color.fromARGB(255, 237, 106, 90),
+                                ),
+
+                                validator: (value1) {
+                                  if (value1 != null &&
+                                      value1[0] == value1[0].toUpperCase()) {
+                                    return null;
+                                  }
+                                  return 'First letter must be uppercase!';
+                                },
+                              ),
+                            ),
+
+                            SizedBox(height: 1),
+
+                            //Email feild
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Email',
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'Suwannaphum',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(190, 28, 28, 34),
+                                  ),
+                                  focusColor: Color.fromARGB(255, 237, 106, 90),
+                                ),
+
+                                validator: (value2) {
+                                  if (value2 != null && value2.contains('@')) {
+                                    return null;
+                                  }
+                                  return 'please enter vaild email';
+                                },
+                              ),
+                            ),
+
+                            SizedBox(height: 1),
+
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                obscureText: currentvisibilityofPassWord,
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        currentvisibilityofPassWord =
+                                            !currentvisibilityofPassWord;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      currentvisibilityofPassWord
+                                          ? Icons.visibility_off_outlined
+                                          : Icons.visibility_outlined,
+                                      size: 30,
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Password',
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'Suwannaphum',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(190, 28, 28, 34),
+                                  ),
+                                ),
+                                validator: (value3) {
+                                  if (value3 != null && value3.length >= 6) {
+                                    _password = value3;
+                                    return null;
+                                  }
+                                  return 'please enter correct password';
+                                },
+                              ),
+                            ),
+
+                            SizedBox(height: 1),
+                            //confirm password feild
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextFormField(
+                                obscureText:
+                                    currentvisibilityofConfirmedPassWord,
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        currentvisibilityofConfirmedPassWord =
+                                            !currentvisibilityofConfirmedPassWord;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      currentvisibilityofConfirmedPassWord
+                                          ? Icons.visibility_off_outlined
+                                          : Icons.visibility_outlined,
+                                      size: 30,
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Confirm Password',
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'Suwannaphum',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(190, 28, 28, 34),
+                                  ),
+                                  focusColor: Color.fromARGB(255, 237, 106, 90),
+                                ),
+
+                                validator: (value4) {
+                                  if (value4 != null && value4 == _password) {
+                                    return null;
+                                  }
+                                  return 'Must match password';
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(height: 50),
+                      ElevatedButton(
+                        onPressed: () {
+                          final isValid = _formKey.currentState!.validate();
+                          if (!isValid) {
+                            return;
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text(
+                                    'Successful process!',
+                                    style: TextStyle(
+                                      fontFamily: 'Suwannaphum',
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  content: Text(
+                                    'Account created successfully.',
+                                    style: TextStyle(
+                                      fontFamily: 'Suwannaphum',
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('close'),
+                                      onPressed: () {
+                                        Navigator.of(context).pushReplacement(
+                                          PageRouteBuilder(
+                                            transitionDuration: Duration(
+                                              milliseconds: 800,
+                                            ),
+                                            pageBuilder:
+                                                (
+                                                  context,
+                                                  animation,
+                                                  secondaryAnimation,
+                                                ) => HomeScreen(),
+                                            transitionsBuilder:
+                                                (
+                                                  context,
+                                                  animation,
+                                                  secondaryAnimation,
+                                                  child,
+                                                ) {
+                                                  return FadeTransition(
+                                                    opacity: animation,
+                                                    child: child,
+                                                  );
+                                                },
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        },
+                        child: Text(
+                          "Sign in",
+                          style: TextStyle(
+                            color: Color.fromARGB(190, 28, 28, 34),
+                            fontFamily: 'Suwannaphum',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
